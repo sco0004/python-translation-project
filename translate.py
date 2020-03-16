@@ -95,7 +95,10 @@ def get_complement(sequence):
     >>> get_reverse('ATGC')
     'TACG'
     """
-    pass
+    #pass
+    sequence = sequence.upper()
+    complement = {'A':'U', 'U':'A', 'C':'G', 'G':'C'}
+    return '' .join([complement[base] for base in sequence])
 
 def reverse_and_complement(sequence):
     """Get the reversed and complemented form of a `sequence` of nucleotides.
