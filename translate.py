@@ -137,9 +137,17 @@ def get_complement(sequence):
     """
     #pass
 
-    sequence = sequence.upper()
-    complement = {'A':'U', 'U':'A', 'C':'G', 'G':'C'}
-    return '' .join([complement[base] for base in sequence])
+    rna_comp = {
+        'A': 'U',
+        'C': 'G',
+        'U': 'A',
+        'G': 'C',
+        }
+    comp_list = []
+    for i in sequence:
+        comp_list.append(rna_comp[i.upper()])
+    complementary_seq = "".join(comp_list)
+    return complementary_seq
 
 def reverse_and_complement(sequence):
     """Get the reversed and complemented form of a `sequence` of nucleotides.
