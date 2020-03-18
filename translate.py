@@ -36,16 +36,19 @@ def translate_sequence(rna_sequence, genetic_code):
     #pass
 
     rna_sequence = rna_sequence.upper()
-    peptide = ''
+    peptide = []
 
-    for i in range(0, len(rna_sequence),3):
-        codon = rna_sequence[i:i + 3]
-        amino_acid = genetic_code.get(codon, '*')
-        if amino_acid != '*':
-            peptide += amino_acid
-        else:
+    while True:
+        if len(rna_sequence) < 3:
             break
-    return "".join(peptide)
+        first_codon, other_codon = codons(rna_sequence)
+        rna_sequence = other_codon
+        amino_acid = genetic_code[first_codon]
+        if amino_acid == '*':
+            break
+        peptide.append(amino_acid)
+    translated_seq = "".join(peptide)
+    return translated_seq
 
 def get_all_translations(rna_sequence, genetic_code):
     """Get a list of all amino acid sequences encoded by an RNA sequence.
