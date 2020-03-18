@@ -2,6 +2,11 @@
 
 import sys
 
+def codons(sequence):
+    first_codon = sequence[0:3]
+    other_codon = sequence[3:]
+    return first_codon, other_codon
+
 def translate_sequence(rna_sequence, genetic_code):
     """Translates a sequence of RNA into a sequence of amino acids.
 
