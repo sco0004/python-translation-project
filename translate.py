@@ -4,8 +4,8 @@ import sys
 
 def codons(sequence):
     first_codon = sequence[0:3]
-    other_codon = sequence[3:]
-    return first_codon, other_codon
+    remaining_sequence = sequence[3:]
+    return first_codon, remaining_sequence
 
 def translate_sequence(rna_sequence, genetic_code):
     """Translates a sequence of RNA into a sequence of amino acids.
@@ -33,22 +33,20 @@ def translate_sequence(rna_sequence, genetic_code):
     str
         A string of the translated amino acids.
     """
-    #pass
 
     rna_sequence = rna_sequence.upper()
-    peptide = []
+    aa_list = []
 
     while True:
         if len(rna_sequence) < 3:
             break
-        first_codon, other_codon = codons(rna_sequence)
-        rna_sequence = other_codon
+        first_codon, remaining_sequence = codons(rna_sequence)
+        rna_sequence = remaining_sequence
         amino_acid = genetic_code[first_codon]
         if amino_acid == '*':
             break
-        peptide.append(amino_acid)
-    translated_seq = "".join(peptide)
-    return translated_seq
+        aa_list.append(amino_acid)
+    return "".join(aa_list)
 
 def get_all_translations(rna_sequence, genetic_code):
     """Get a list of all amino acid sequences encoded by an RNA sequence.
@@ -97,8 +95,8 @@ def get_all_translations(rna_sequence, genetic_code):
                 rna_sequence = rna_sequence[i:],
                 genetic_code = genetic_code)
             if aa_sequence:
-                aa_sequence_list.append(aa_sequence)
-    return aa_sequence_list
+                amino_acid_list.append(aa_sequence)
+    return amino_acid_list
 
 def get_reverse(sequence):
     """Reverse orientation of `sequence`.
@@ -166,8 +164,8 @@ def reverse_and_complement(sequence):
     """
     #pass
 
-    reverse_sequence = get_reverse(sequence)
-    rev_complement_sequence = get_complement(reverse_sequence)
+    reverse_seq = get_reverse(sequence)
+    rev_complement_sequence = get_complement(reverse_seq)
     return rev_complement_sequence
 
 def get_longest_peptide(rna_sequence, genetic_code):
@@ -201,7 +199,7 @@ def get_longest_peptide(rna_sequence, genetic_code):
 
     peptides = get_all_translations(rna_sequence = rna_sequence, genetic_code = genetic_code)
     rev_comp_seq = reverse_and_complement(rna_sequence)
-    rev_comp_peptides = get_all_translations(rna_sequence = rev_complement_sequence, genetic_code = genetic_code)
+    rev_comp_peptides = get_all_translations(rna_sequence = rev_comp_seq, genetic_code = genetic_code)
     peptides += rev_comp_peptides
     if not peptides:
         return ""
