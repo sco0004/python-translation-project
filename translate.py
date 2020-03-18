@@ -116,8 +116,10 @@ def get_reverse(sequence):
     """
     #pass
 
-    sequence=sequence.upper()
-    return sequence [::-1]
+    sequence_list = list(sequence.upper())
+    sequence_list.reverse()
+    reverse_seq = "".join(sequence_list)
+    return reverse_seq
 
 def get_complement(sequence):
     """Get the complement of a `sequence` of nucleotides.
